@@ -1,8 +1,10 @@
 app.controller('login.controller', [
     '$scope', 'UserService', 'SessionService', '$location', 
     function($scope, UserService, SessionService, $location){
-
-    $scope.user = {}
+    
+    $scope.user = {
+        email: 'mimatos@deloitte.com'
+    }
 
     $scope.login = function(evt){
         if($scope.user.email){

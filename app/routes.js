@@ -4,11 +4,11 @@ app.config(function($stateProvider, $urlRouterProvider){
     $stateProvider
         .state('/', {
             url: '/',
-            templateUrl: '/core/login/index.html'
+            templateUrl: '/core/features/login/index.html'
         })
         .state('/chat', {
             url: '/chat',
-            templateUrl: '/core/chat/index.html'
+            templateUrl: '/core/features/chat/index.html'
         });
 
 });
