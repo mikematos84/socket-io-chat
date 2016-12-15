@@ -1,0 +1,22 @@
+<div ng-cloak ng-controller="lobby.controller" layout-fill>
+    
+    <md-content layout-padding>
+
+      <div layout="row" layout-align="center center">
+        Select from one of the channels/rooms below
+      </div>
+
+      <div layout="row" layout-align="center center">
+        <md-card 
+          class="channel-selector"
+          ng-repeat="channel in channels" 
+          ng-class="chatService.currentChannel==channel ? 'active' : ''"
+          layout-padding style="cursor: pointer"
+          ng-click="joinChannel($index);">
+          {{channel.name}}
+        </md-card>
+      </div>
+    
+    </md-content>
+
+</div>
