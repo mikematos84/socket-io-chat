@@ -1,1 +1,41 @@
-Channel
+<section layout="column" flex layout-fill ng-controller="channel.controller">
+    <section id="content" layout="row">
+        <md-sidenav id="sidenav" class="md-sidenav-left" flex="25" md-is-locked-open="true">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Users</h2>
+                </div>
+            </md-toolbar>
+            <md-list flex>
+                <md-list-item class="list-item" ng-repeat="user in ['Mike','Billy']" layout="row" ng-click="null">
+                    <i class="material-icons">account_circle</i>
+                    <span>{{user}}</span>
+                </md-list-item>
+            </md-list>
+        </md-sidenav>
+
+        <section flex>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Chat Channel &raquo; {{chatService.channel.name}}</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button">
+                        <i class="material-icons" ng-click="leaveChannel();">arrow_back</i>
+                    </md-button>                    
+                </div>
+            </md-toolbar>
+            <md-content class="md-padding" flex>
+                This is where all the chat will go
+            </md-content>
+            <section id="message-bar" class="md-padding" layout="row">
+                <md-input-container class="md-block" flex>
+                    <label>Message</label>
+                    <input type="text" name="message" ng-model="chatService.message">
+                </md-input-container>
+                <md-button class="md-icon-button" ng-click="sendMessage()">
+                    <i class="material-icons">send</i>
+                </md-button>
+            </section>
+        </section>
+    </section>
+</section>

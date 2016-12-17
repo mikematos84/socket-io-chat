@@ -13,6 +13,7 @@
 
         <link rel="stylesheet" href="/css/normalize.min.css">
         <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="/scripts/angular-material/angular-material.css">
         <link rel="stylesheet" href="/css/styles.css">
 
@@ -23,7 +24,10 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div ui-view></div>
+        <md-content layout-fill>
+            <md-button ng-click="logout();">Logout</md-button> <span ng-bind="session.user.email"></span>
+            <div ui-view></div>
+        </md-content>
 
         <!--<script src="js/vendor/jquery-1.11.2.min.js"></script>-->
         <script src="/js/plugins.js"></script>
@@ -45,7 +49,6 @@
         <script src="/core/components/channel/controller.js"></script>
 
         <!-- Services -->
-        <script src="/core/shared/user.service.js"></script>
         <script src="/core/shared/session.service.js"></script>
         <script src="/core/shared/chat.service.js"></script>
 

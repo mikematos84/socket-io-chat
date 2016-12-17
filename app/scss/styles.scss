@@ -1,8 +1,3 @@
-#login-panel{
-    max-width: 400px;
-}
-
-.channel-selector.active{
-    background-color: dodgerblue;
-    color: white;
-}
+@import 'login';
+@import 'lobby';
+@import 'channel';

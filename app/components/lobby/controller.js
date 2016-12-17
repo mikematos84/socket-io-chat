@@ -1,17 +1,17 @@
 app.controller('lobby.controller', 
-['$scope', '$state', 'UserService', 'ChatService', 
-function($scope, $state, UserService, ChatService){
+['$rootScope', '$scope', '$state', '$timeout', 'SessionService', 'ChatService', 
+function($rootScope, $scope, $state, $timeout, SessionService, ChatService){
 
     $scope.chatService = ChatService;
-    $scope.channels = [];
 
-    ChatService.getChannels().then(function(data){
-        $scope.channels = data;
+    /** Connect to chat services */
+    ChatService.connect().then(function(data){
+        ChatService.channels = data;
     });
-
+    
     $scope.joinChannel = function($i){
-        ChatService.join($scope.channels[$i]);
-        $state.transitionTo('channel', {id: ChatService.currentChannel.channel_id});
+        ChatService.join(ChatService.channels[$i]);
+        $state.transitionTo('channel', {id: ChatService.channel.channel_id});
     };
 
 }]);

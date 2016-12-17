@@ -9,8 +9,8 @@
       <div layout="row" layout-align="center center">
         <md-card 
           class="channel-selector"
-          ng-repeat="channel in channels" 
-          ng-class="chatService.currentChannel==channel ? 'active' : ''"
+          ng-repeat="channel in chatService.channels" 
+          ng-class="chatService.channel==channel ? 'active' : ''"
           layout-padding style="cursor: pointer"
           ng-click="joinChannel($index);">
           {{channel.name}}

@@ -1,16 +1,21 @@
 app.controller('login.controller', [
-    '$scope', 'UserService', 'SessionService', '$state', 
-    function($scope, UserService, SessionService, $state){
+'$scope', 'SessionService', '$state', 
+function($scope, SessionService, $state){
     
-        $scope.user = {
+    $scope.user = {
         email: 'mimatos@deloitte.com'
     }
 
     $scope.login = function(evt){
         if($scope.user.email){
-            UserService.email = $scope.user.email;
-            UserService.lastLogin = new Date();
-            $state.transitionTo('lobby');
+            var user = {
+                email: $scope.user.email,
+                last_login: new Date()
+            };
+            SessionService.start(user).then(function(res){
+                $scope.$emit('updateService', user);
+                $state.transitionTo('lobby');
+            });
         }
     }
 

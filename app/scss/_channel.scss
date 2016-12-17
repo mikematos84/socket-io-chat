@@ -1,0 +1,25 @@
+.channel-selector.active{
+    background-color: dodgerblue;
+    color: white;
+}
+
+#content{
+    #sidenav{
+        .list-item{
+            line-height: 30px;
+            
+            .material-icons{
+                font-size: 30px;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    md-input-container .md-errors-spacer {
+        min-height: 0;
+    }
+}
+
+#message-bar{
+    background-color: white;
+}

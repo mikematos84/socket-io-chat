@@ -1,17 +1,17 @@
+/**
+ * Database Connection
+ */
 var mysql = require('mysql');
 
-var database = function(){
-
-    this.connection = mysql.createConnection({
+module.exports = function(){
+    var db = mysql.createConnection({
         host: 'localhost',
         user: 'root',
         password: '',
         database: 'chat_app'
     });
 
-    this.connection.connect();
-    
-    return this.connection;
-};
+    db.connect();
 
-module.exports = database;
+    return db;
+}(); //self execute
