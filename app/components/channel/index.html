@@ -25,7 +25,7 @@
                 </div>
             </md-toolbar>
             <md-content class="md-padding" flex>
-                This is where all the chat will go
+                <div ng-repeat="entry in chatService.channel.log track by $index">{{entry}}</div>
             </md-content>
             <section id="message-bar" class="md-padding" layout="row">
                 <md-input-container class="md-block" flex>

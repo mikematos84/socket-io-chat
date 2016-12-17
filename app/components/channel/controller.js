@@ -7,12 +7,7 @@ function($scope, $stateParams, $timeout, $state, ChatService, SessionService, $m
 
     /** Connect to chat services */
     ChatService.connect().then(function(data){
-        ChatService.channels = data;
         ChatService.setChannel($stateParams.id);
-
-        $timeout(function(){
-            $scope.$apply();
-        });
     });
 
     $scope.sendMessage = function(){
@@ -22,7 +17,6 @@ function($scope, $stateParams, $timeout, $state, ChatService, SessionService, $m
     $scope.leaveChannel = function(){
         ChatService.leave(ChatService.channel);
         $state.transitionTo('lobby');
-
     }
 
 }]);

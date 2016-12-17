@@ -1,3 +1,6 @@
+/**
+ * Session 
+ */
 app.service('SessionService', 
 ['$http', '$q', '$state',
 function($http, $q, $state){
