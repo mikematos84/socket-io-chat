@@ -9,12 +9,21 @@ module.exports = function(server){
         console.log('socket.io --> started', socket.id);
         
         socket.on('disconnect', function(data){ 
-            console.log(data.client + 'has disconnected from chat');
+           
+        });
+
+        socket.on('join-user-channel', function(user){
+            socket.join(user.email);
+        });
+
+        socket.on('leave-user-channel', function(user){
+            socket.leave(user.email);
         });
 
         socket.on('join', function(data){
             socket.join(data.channel.name);
             var socketsInRoom = io.sockets.adapter.rooms[data.channel.name];
+            console.log("joined: " + JSON.stringify(socketsInRoom));
             socket.broadcast.to(data.channel.name).emit('user:joined', data);
             io.in(data.channel.name).emit('update', socketsInRoom);
         });  
@@ -22,6 +31,7 @@ module.exports = function(server){
         socket.on('leave', function(data){
             socket.leave(data.channel.name);
             var socketsInRoom = io.sockets.adapter.rooms[data.channel.name];
+            console.log("left: " + JSON.stringify(socketsInRoom));
             socket.broadcast.to(data.channel.name).emit('user:left', data);
             io.in(data.channel.name).emit('update', socketsInRoom);
         });

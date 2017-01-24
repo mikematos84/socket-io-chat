@@ -1,6 +1,6 @@
 app.controller('login.controller', [
-'$scope', 'SessionService', '$state', 
-function($scope, SessionService, $state){
+'$rootScope', '$scope', 'SessionService', '$state', 
+function($rootScope, $scope, SessionService, $state){
     
     $scope.user = {
         email: 'mimatos@deloitte.com'
@@ -12,6 +12,7 @@ function($scope, SessionService, $state){
                 email: $scope.user.email,
                 last_login: new Date()
             };
+            $rootScope.socket.emit('join-user-channel', user);
             SessionService.start(user).then(function(res){
                 $scope.$emit('updateService', user);
                 $state.transitionTo('lobby');

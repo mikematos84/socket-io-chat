@@ -4,10 +4,11 @@ var app = angular.module('chat-app', [
 ]);
 
 app.controller('mainCtrl', 
-['$scope', '$timeout', '$state', 'SessionService', 
-function($scope, $timeout, $state, SessionService){
+['$rootScope', '$scope', '$timeout', '$state', 'SessionService', 
+function($rootScope, $scope, $timeout, $state, SessionService){
     
     $scope.session = SessionService;
+    $rootScope.socket = io.connect('http://localhost:3000');
     
     SessionService.reload().then(function(res){
         if(res.data.user){
@@ -17,6 +18,8 @@ function($scope, $timeout, $state, SessionService){
     });
 
     $scope.logout = function(){
+        $rootScope.socket.emit('leave-user-channel', SessionService.user);
+        $rootScope.socket.disconnect();
         SessionService.destroy().then(function(res){
             $state.transitionTo('home');
         });

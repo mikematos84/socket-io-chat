@@ -2,15 +2,14 @@
  * Chat Socket
  */
 app.service('ChatService', 
-['$http', '$q', '$rootScope', 'SessionService', 'ChannelFactory',
-function($http, $q, $rootScope, SessionService, ChannelFactory){
+['$rootScope', '$http', '$q', '$rootScope', 'SessionService', 'ChannelFactory',
+function($rootScope, $http, $q, $rootScope, SessionService, ChannelFactory){
     
     var self = this;
-    var socket = io.connect('http://localhost:3000');
     
     this.channels = [];
     this.channel = {};
-        this.message = '';
+    this.message = '';
     
     this.connect = function(){
         var defer = $q.defer();
@@ -65,18 +64,18 @@ function($http, $q, $rootScope, SessionService, ChannelFactory){
     this.join = function(channel){
         self.channel = channel;
         self.message = '';
-        SessionService.user.socket_id = socket.id;
+        SessionService.user.socket_id = $rootScope.socket.id;
         self.channel.addUser(SessionService.user);
-        socket.emit('join', {channel: channel, client: SessionService.user.email});
+        $rootScope.socket.emit('join', {channel: channel, client: SessionService.user.email});
     }
     
     this.leave = function(channel){
         self.channel.removeUser(SessionService.user);
-        socket.emit('leave', {channel: self.channel, client: SessionService.user.email});
+        $rootScope.socket.emit('leave', {channel: self.channel, client: SessionService.user.email});
     }
 
     this.channelMessage = function(){
-        socket.emit('channel:message', {
+        $rootScope.socket.emit('channel:message', {
             channel: self.channel,
             user: SessionService.user.email,
             message: self.message,
@@ -86,17 +85,17 @@ function($http, $q, $rootScope, SessionService, ChannelFactory){
         self.message = '';
     }
 
-    socket.on('user:joined', function(data){
+    $rootScope.socket.on('user:joined', function(data){
         self.channel.log.push(data.client + ' joined ' + data.channel.name);
         $rootScope.$apply();
     });
 
-    socket.on('user:left', function(data){
+    $rootScope.socket.on('user:left', function(data){
         self.channel.log.push(data.client + ' left ' + data.channel.name);
         $rootScope.$apply();
     });
 
-    socket.on('channel:message', function(data){
+    $rootScope.socket.on('channel:message', function(data){
         self.channel.log.push(data.user + ': ' + data.message);
         $rootScope.$apply();
     });
